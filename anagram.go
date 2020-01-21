@@ -14,6 +14,7 @@ func Detect(subject string, candidates []string) (anagrams []string) {
 	// the program should return a list containing "inlets".
 	// tip: anagrams are identical when sorted
 
+	// ignore case on subject and candidate
 	// fmt.Println("Detect:", subject, candidates)
 	subject = strings.ToLower(subject)
 
@@ -28,11 +29,15 @@ func Detect(subject string, candidates []string) (anagrams []string) {
 			continue
 		}
 
-		sLow := strings.ToLower(s)
-		sortCand := SortString(sLow)
+		cand := strings.ToLower(s)
+		sortCand := SortString(cand)
 		// fmt.Println("sort_cand", sort_cand)
 		if sortCand == sortedSubject {
 			unsortedCand := s
+			if cand == subject {
+				// dont match identical words
+				continue
+			}
 			anagramCands = append(anagramCands, unsortedCand)
 		}
 	}
